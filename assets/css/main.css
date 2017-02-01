@@ -107,7 +107,8 @@
           font-family: chalkboard;
           -webkit-align-self: flex-end;
               -ms-flex-item-align: end;
-                  align-self: flex-end; }
+                  align-self: flex-end;
+          color: white; }
         .wrapper .outer-container .board-container .box-container .box-1, .wrapper .outer-container .board-container .box-container .box-4, .wrapper .outer-container .board-container .box-container .box-7 {
           margin-right: 2px; }
         .wrapper .outer-container .board-container .box-container .box-3, .wrapper .outer-container .board-container .box-container .box-6, .wrapper .outer-container .board-container .box-container .box-9 {
@@ -130,7 +131,8 @@
           font-family: chalkboard;
           -webkit-align-self: flex-end;
               -ms-flex-item-align: end;
-                  align-self: flex-end; }
+                  align-self: flex-end;
+          color: white; }
         .wrapper .outer-container .board-container .box-container .box-1, .wrapper .outer-container .board-container .box-container .box-4, .wrapper .outer-container .board-container .box-container .box-7 {
           margin-right: 2px; }
         .wrapper .outer-container .board-container .box-container .box-3, .wrapper .outer-container .board-container .box-container .box-6, .wrapper .outer-container .board-container .box-container .box-9 {
@@ -153,7 +155,8 @@
           font-family: chalkboard;
           -webkit-align-self: flex-end;
               -ms-flex-item-align: end;
-                  align-self: flex-end; }
+                  align-self: flex-end;
+          color: white; }
         .wrapper .outer-container .board-container .box-container .box-1, .wrapper .outer-container .board-container .box-container .box-4, .wrapper .outer-container .board-container .box-container .box-7 {
           margin-right: 2px; }
         .wrapper .outer-container .board-container .box-container .box-3, .wrapper .outer-container .board-container .box-container .box-6, .wrapper .outer-container .board-container .box-container .box-9 {
@@ -176,7 +179,8 @@
           font-family: chalkboard;
           -webkit-align-self: flex-end;
               -ms-flex-item-align: end;
-                  align-self: flex-end; }
+                  align-self: flex-end;
+          color: white; }
         .wrapper .outer-container .board-container .box-container .box-1, .wrapper .outer-container .board-container .box-container .box-4, .wrapper .outer-container .board-container .box-container .box-7 {
           margin-right: 2px; }
         .wrapper .outer-container .board-container .box-container .box-3, .wrapper .outer-container .board-container .box-container .box-6, .wrapper .outer-container .board-container .box-container .box-9 {
@@ -199,7 +203,8 @@
           font-family: chalkboard;
           -webkit-align-self: flex-end;
               -ms-flex-item-align: end;
-                  align-self: flex-end; }
+                  align-self: flex-end;
+          color: white; }
         .wrapper .outer-container .board-container .box-container .box-1, .wrapper .outer-container .board-container .box-container .box-4, .wrapper .outer-container .board-container .box-container .box-7 {
           margin-right: 2px; }
         .wrapper .outer-container .board-container .box-container .box-3, .wrapper .outer-container .board-container .box-container .box-6, .wrapper .outer-container .board-container .box-container .box-9 {
@@ -222,7 +227,8 @@
           font-family: chalkboard;
           -webkit-align-self: flex-end;
               -ms-flex-item-align: end;
-                  align-self: flex-end; }
+                  align-self: flex-end;
+          color: white; }
         .wrapper .outer-container .board-container .box-container .box-1, .wrapper .outer-container .board-container .box-container .box-4, .wrapper .outer-container .board-container .box-container .box-7 {
           margin-right: 2px; }
         .wrapper .outer-container .board-container .box-container .box-3, .wrapper .outer-container .board-container .box-container .box-6, .wrapper .outer-container .board-container .box-container .box-9 {
@@ -245,7 +251,8 @@
           font-family: chalkboard;
           -webkit-align-self: flex-end;
               -ms-flex-item-align: end;
-                  align-self: flex-end; }
+                  align-self: flex-end;
+          color: white; }
         .wrapper .outer-container .board-container .box-container .box-1, .wrapper .outer-container .board-container .box-container .box-4, .wrapper .outer-container .board-container .box-container .box-7 {
           margin-right: 2px; }
         .wrapper .outer-container .board-container .box-container .box-3, .wrapper .outer-container .board-container .box-container .box-6, .wrapper .outer-container .board-container .box-container .box-9 {
@@ -268,7 +275,8 @@
           font-family: chalkboard;
           -webkit-align-self: flex-end;
               -ms-flex-item-align: end;
-                  align-self: flex-end; }
+                  align-self: flex-end;
+          color: white; }
         .wrapper .outer-container .board-container .box-container .box-1, .wrapper .outer-container .board-container .box-container .box-4, .wrapper .outer-container .board-container .box-container .box-7 {
           margin-right: 2px; }
         .wrapper .outer-container .board-container .box-container .box-3, .wrapper .outer-container .board-container .box-container .box-6, .wrapper .outer-container .board-container .box-container .box-9 {
@@ -291,7 +299,8 @@
           font-family: chalkboard;
           -webkit-align-self: flex-end;
               -ms-flex-item-align: end;
-                  align-self: flex-end; }
+                  align-self: flex-end;
+          color: white; }
         .wrapper .outer-container .board-container .box-container .box-1, .wrapper .outer-container .board-container .box-container .box-4, .wrapper .outer-container .board-container .box-container .box-7 {
           margin-right: 2px; }
         .wrapper .outer-container .board-container .box-container .box-3, .wrapper .outer-container .board-container .box-container .box-6, .wrapper .outer-container .board-container .box-container .box-9 {
@@ -315,20 +324,36 @@
           justify-content: space-between;
   height: 35px;
   width: 300px;
-  margin-top: 35px;
-  position: absolute; }
+  margin-top: 0;
+  position: absolute;
+  font-size: 1.1em;
+  font-family: chalkboard; }
   .prompt .player1Prompt, .prompt .player2Prompt {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: center;
+    -webkit-justify-content: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+        -ms-flex-align: center;
+            align-items: center;
     height: 35px;
     width: 120px;
     background: #0F6262;
-    margin-top: -35px;
     -webkit-border-radius: 5px;
             border-radius: 5px;
-    border: 1px solid white; }
+    border: 1px solid white;
+    color: white; }
   .prompt .player1Prompt {
-    margin-left: 15px; }
+    margin-left: 15px;
+    margin-top: 0; }
   .prompt .player2Prompt {
-    margin-right: 15px; }
+    margin-right: 15px;
+    margin-top: 0; }
 
 .score-panel {
   display: -webkit-box;

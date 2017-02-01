@@ -6,16 +6,26 @@ var inGame = false;
 var player1Score = 0;
 var player2Score = 0;
 var turn = 0;
+var player1Symbol = '';
+var player2Symbol = '';
+var numPositionsFilled = 0;
 
 var resetSquares = function(){
   $('.box-container').html('');
   for (var i = 1; i <= 9; i++) {
-    box = '<li class="box-'+ i + '"></li>';
+    var box = '<li class="box-'+ i + '"></li>';
     $('.box-container').append(box);
   }
 };
 
-turn = function(){
+var resetBoard = function(){
+  for (var i = 1; i <= 9; i++) {
+    board[i] = '';
+    $('.box-container .box-'+i).text('');
+  }
+};
+
+randomizePlayer = function(){
   var random = Math.floor(Math.random() * 2 + 1);
   return random;
 }
@@ -28,25 +38,69 @@ var play = function(){
 
   //display player scores based on selection
   //decide whose turn it is and prompt that player
-  //check for winning combos | switch player turns | update scores | reset game
-  turn();
-  console.log(turn());
-  console.log(secondPlayer);
-  if (turn === 1) {
-    //animate player1Prompt
-    //$('.prompt .player1Prompt').animate({'margin-top': '35px'}, 500);
-  } else if (turn === 2 && secondPlayer) {
-    //animate player2Prompt
-    //$('.prompt .player2Prompt').animate({'margin-top': '35px'}, 500);
-  } else {
-    //animate player2Prompt computer
-    //$('.prompt .player2Prompt').animate({'margin-top': '35px'}, 500);
-  }
+  turn = randomizePlayer();
+  console.log("Turn: "+turn);
+  console.log("Human Opp: "+secondPlayer);
+  console.log("Player1: "+player1Symbol);
+  console.log("Player2: "+player2Symbol);
 
+  inGame = true;
+    //Initialize player turn animation
+    if (turn === 1) {
+      if (secondPlayer) {
+        $('.player1Prompt').text('Go Player 1');
+      } else {
+        $('.player1Prompt').text('Your Turn!')
+      }
+      $('.player1Prompt').animate({'margin-top': '-35px'}, 500);
+    }
+    else if (turn === 2) {
+      if (secondPlayer) {
+        $('.player2Prompt').text('Go Player 2');
+      } else {
+        $('.player2Prompt').text('Computer!')
+      }
+      $('.player2Prompt').animate({'margin-top': '-35px'}, 500);
+    }
+
+
+  // symbol assignment | check for winning combos | switch player turns | update scores | reset game
 
   $('.box-container li').click(function(e){
     e.stopPropagation();
+    var symbol = turn === 1 ? player1Symbol : player2Symbol;
+    var box = $(this);
+    if (box.text() === '' /*add more condition*/ ) {
 
+      box.text(symbol);
+
+      //Check for win draw for every turn
+
+
+      //Switching turns
+      if (turn === 1) {
+        turn = 2;
+        //switch animation to player 2
+        if (secondPlayer) {
+          $('.player2Prompt').text('Go Player 2');
+        }else {
+          $('.player2Prompt').text('Computer!');
+        }
+        $('.player1Prompt').animate({'margin-top': '0'}, 500);
+        $('.player2Prompt').animate({'margin-top': '-35px'}, 500);
+      } else if (turn === 2) {
+        turn = 1;
+        if (secondPlayer) {
+          $('.player1Prompt').text('Go Player 1');
+        }else {
+          $('.player1Prompt').text('Your Turn!');
+        }
+        $('.player2Prompt').animate({'margin-top': '0'}, 500);
+        $('.player1Prompt').animate({'margin-top': '-35px'}, 500);
+      }
+
+
+    }
 
   });
 }
@@ -62,7 +116,7 @@ var initializeGame = function(){
   $('.symbol-selection').hide();
   $('.scores').children().hide();
 
-  $('.prompt').animate({'margin-top': '0'}, 500);
+  $('.prompt').animate({'margin-top': '-35px'}, 500);
   $('.score-panel').animate({'margin-top': '0'}, 500);
   $('.box-container').fadeIn(500);
   $('.box-container, .score-panel').children().css({"pointer-events": 'none'});
@@ -70,7 +124,7 @@ var initializeGame = function(){
   setTimeout(function(){
     $('.gameMode').fadeIn(1000);
     $('.box-container').fadeOut();
-    $('.prompt').animate({'margin-top': '35px'}, 800);
+    $('.prompt').animate({'margin-top': '0'}, 800);
     $('.score-panel').animate({'margin-top': '-35px'}, 800);
   }, 1500);
 
@@ -78,12 +132,13 @@ var initializeGame = function(){
     e.stopPropagation();
     $('.gameMode').fadeOut(500);
     $('.symbol-selection').fadeIn(600);
-    if ($(this).text() === 'Human') {
+    var choice = $(this).text();
+    if (choice === 'Human') {
       secondPlayer = true;
     }
   });
 
-  $('.symbol').click(function(e){
+  $('.symbol-x, .symbol-o').click(function(e){
     e.stopPropagation();
     $('.symbol-selection').fadeOut(500);
     if (secondPlayer) {
@@ -91,9 +146,17 @@ var initializeGame = function(){
     } else {
       $('.player-2 .label').text('Computer :  ');
     }
+    player1Symbol = $(this).text();
+    player2Symbol = player1Symbol === 'X' ? 'O': 'X';
+
     play();
 
   });
+
+  $('.resetAll').click(function(){
+    resetBoard();
+  });
+
 
 }
 
