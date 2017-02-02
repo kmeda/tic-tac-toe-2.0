@@ -1,11 +1,12 @@
 
 // initialize vars
 var board = {1: '', 2: '', 3: '', 4: '', 5: '', 6: '', 7: '', 8: '', 9: ''};
+var winCombos = [[1, 2, 3], [4, 5, 6], [7, 8, 9], [1, 4, 7], [2, 5, 8], [3, 6, 9], [1, 5, 9], [7, 5, 3]];
 var secondPlayer = false;
 var inGame = false;
 var player1Score = 0;
 var player2Score = 0;
-var turn = 0;
+var turn;
 var player1Symbol = '';
 var player2Symbol = '';
 var numPositionsFilled = 0;
@@ -25,88 +26,38 @@ var resetBoard = function(){
   }
 };
 
-randomizePlayer = function(){
+var randomizePlayer = function(){
   var random = Math.floor(Math.random() * 2 + 1);
   return random;
 }
 
-var play = function(){
-  $('.box-container').fadeIn(600);
-  $('.score-panel').animate({'margin-top': '0'}, 500);
-  $('.scores').children().fadeIn(500);
-  $('.box-container, .score-panel').children().css({"pointer-events": 'all'});
-
-  //display player scores based on selection
-  //decide whose turn it is and prompt that player
-  turn = randomizePlayer();
-  console.log("Turn: "+turn);
-  console.log("Human Opp: "+secondPlayer);
-  console.log("Player1: "+player1Symbol);
-  console.log("Player2: "+player2Symbol);
-
-  inGame = true;
-    //Initialize player turn animation
-    if (turn === 1) {
-      if (secondPlayer) {
-        $('.player1Prompt').text('Go Player 1');
-      } else {
-        $('.player1Prompt').text('Your Turn!')
+var checkWin = function(symbol){
+  var currentBoard = board;
+  var wins = winCombos;
+  var winningCombo = [];
+  winner = wins.some(function(combo){
+    var winning = true;
+    for (var i = 0; i < combo.length; i++) {
+      if (currentBoard[combo[i]] !== symbol) {
+        winning = false;
       }
-      $('.player1Prompt').animate({'margin-top': '-35px'}, 500);
-    }
-    else if (turn === 2) {
-      if (secondPlayer) {
-        $('.player2Prompt').text('Go Player 2');
-      } else {
-        $('.player2Prompt').text('Computer!')
+      if (winning) {
+        winningCombo = combo;
       }
-      $('.player2Prompt').animate({'margin-top': '-35px'}, 500);
     }
-
-
-  // symbol assignment | check for winning combos | switch player turns | update scores | reset game
-
-  $('.box-container li').click(function(e){
-    e.stopPropagation();
-    var symbol = turn === 1 ? player1Symbol : player2Symbol;
-    var box = $(this);
-    if (box.text() === '' /*add more condition*/ ) {
-
-      box.text(symbol);
-
-      //Check for win draw for every turn
-
-
-      //Switching turns
-      if (turn === 1) {
-        turn = 2;
-        //switch animation to player 2
-        if (secondPlayer) {
-          $('.player2Prompt').text('Go Player 2');
-        }else {
-          $('.player2Prompt').text('Computer!');
-        }
-        $('.player1Prompt').animate({'margin-top': '0'}, 500);
-        $('.player2Prompt').animate({'margin-top': '-35px'}, 500);
-      } else if (turn === 2) {
-        turn = 1;
-        if (secondPlayer) {
-          $('.player1Prompt').text('Go Player 1');
-        }else {
-          $('.player1Prompt').text('Your Turn!');
-        }
-        $('.player2Prompt').animate({'margin-top': '0'}, 500);
-        $('.player1Prompt').animate({'margin-top': '-35px'}, 500);
-      }
-
-
-    }
-
+    return winning;
   });
+  console.log('combo: '+ [winner, winningCombo]);
+  return [winner, winningCombo];
+};
+
+var resetGame = function(){ //Reset current board and continue play
+
 }
 
+var resetAll = function(){ //Full reset
 
-
+};
 
 var initializeGame = function(){
 
@@ -115,6 +66,8 @@ var initializeGame = function(){
   $('.gameMode').hide();
   $('.symbol-selection').hide();
   $('.scores').children().hide();
+  $('.winDrawMessage').hide();
+
 
   $('.prompt').animate({'margin-top': '-35px'}, 500);
   $('.score-panel').animate({'margin-top': '0'}, 500);
@@ -133,10 +86,24 @@ var initializeGame = function(){
     $('.gameMode').fadeOut(500);
     $('.symbol-selection').fadeIn(600);
     var choice = $(this).text();
-    if (choice === 'Human') {
-      secondPlayer = true;
-    }
+
+      secondPlayer = function(){
+        if (choice === 'AI') {
+          $('.player-2 .label').text('Computer : ');
+          return false;
+        } else {
+          $('.player-2 .label').text('Player2 : ');
+          return true;
+        }
+      }
+
+      $('.go-back').click(function(e) {
+          e.stopPropagation();
+          $('.gameMode').fadeIn(500); //***
+          $('.symbol-selection').fadeOut(300);
+        });
   });
+
 
   $('.symbol-x, .symbol-o').click(function(e){
     e.stopPropagation();
@@ -159,6 +126,124 @@ var initializeGame = function(){
 
 
 }
+
+var play = function(){
+  $('.box-container').fadeIn(600);
+  $('.score-panel').animate({'margin-top': '0'}, 500);
+  $('.scores').children().fadeIn(500);
+  $('.box-container, .score-panel').children().css({"pointer-events": 'all'});
+
+  //display player scores based on selection
+  //decide whose turn it is and prompt that player
+  turn = randomizePlayer();
+
+  inGame = true;
+    //Initialize player turn animation
+    if (turn === 1) {
+      if (secondPlayer()) {
+        $('.player1Prompt').text('Go Player 1');
+      } else {
+        $('.player1Prompt').text('Your Turn!')
+      }
+      $('.player1Prompt').animate({'margin-top': '-35px'}, 500);
+    }
+    else if (turn === 2) {
+      if (secondPlayer()) {
+        $('.player2Prompt').text('Go Player 2');
+      } else {
+        $('.player2Prompt').text('Computer!')
+      }
+      $('.player2Prompt').animate({'margin-top': '-35px'}, 500);
+    }
+
+
+  $('.box-container li').click(function(e){
+    e.stopPropagation();
+    /*
+    console.log("Turn: "+turn);
+    console.log("Human Opp: "+secondPlayer());
+    console.log("Player1: "+player1Symbol);
+    console.log("Player2: "+player2Symbol);
+    */
+
+    var symbol = turn === 1 ? player1Symbol : player2Symbol;
+    var box = $(this);
+
+    if (box.text() === '' && inGame && (turn === 1 || (turn === 2 && secondPlayer))) {
+      box.text(symbol); //Inserts symbol in the box
+
+      //Check for win draw for every turn - More if conditions before switching turns - Update scores
+      //Write this code yourself..
+
+      numPositionsFilled += 1;      //Updates board and positions filled
+      var currentBox = $(this).attr('class')
+          currentBox = currentBox[currentBox.length - 1];
+          board[currentBox] = symbol;
+          console.log(board);
+      console.log('currentBox: '+ currentBox);
+
+
+      if (inGame) {
+        //checkWin(symbol);
+        if (checkWin(symbol)[0]) {  /*Winner | loop through each winning combo to check symbol*/
+          //update score
+          var currentScore = turn === 1 ? player1Score +=1 : player2Score +=1;
+          $('.score-'+turn).text(currentScore);
+              if (secondPlayer()) {
+                //display message for that player
+                var winner = turn === 1 ? 'Player 1 Wins!' : 'Player 2 Wins!';
+                $('.winDrawMessage').text(winner);
+                $('.winDrawMessage').fadeIn(300);
+              } else {
+                //computer win case - lose message
+                var winner = turn === 1 ? 'You Win!' : 'You lose!';
+                $('.winDrawMessage').text(winner);
+                $('.winDrawMessage').fadeIn(300);
+              }
+          //reset game and start playing
+
+        } else if (numPositionsFilled === 9) {  /*Draw | numPositionsFilled = 9*/
+          //reset game and start playing
+          $('.winDrawMessage').text("It was a draw!");
+          $('.winDrawMessage').fadeIn(300);
+
+        } else {
+          if (turn === 1) {  //Switching turns
+            turn = 2;
+            //switch animation to player 2
+            if (secondPlayer()) {
+              $('.player2Prompt').text('Go Player 2');
+            }else {
+              $('.player2Prompt').text('Computer!');
+            }
+            $('.player1Prompt').animate({'margin-top': '0'}, 500);
+            $('.player2Prompt').animate({'margin-top': '-35px'}, 500);
+
+            if (!secondPlayer()) {
+              //computerPlay();
+            }
+
+
+          } else if (turn === 2) {
+            turn = 1;
+            if (secondPlayer()) {
+              $('.player1Prompt').text('Go Player 1');
+            }else {
+              $('.player1Prompt').text('Your Turn!');
+            }
+            $('.player2Prompt').animate({'margin-top': '0'}, 500);
+            $('.player1Prompt').animate({'margin-top': '-35px'}, 500);
+          }
+        }
+      }
+    }
+
+  });
+}
+
+
+
+
 
 
 $(document).ready(function(){
