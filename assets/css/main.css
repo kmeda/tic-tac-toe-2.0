@@ -390,10 +390,9 @@
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-pack: justify;
-  -webkit-justify-content: space-between;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
+  -webkit-justify-content: space-around;
+      -ms-flex-pack: distribute;
+          justify-content: space-around;
   height: 35px;
   width: 280px;
   background: #c8c8c8;
@@ -402,57 +401,39 @@
   -webkit-border-bottom-right-radius: 5px;
           border-bottom-right-radius: 5px;
   -webkit-border-bottom-left-radius: 5px;
-          border-bottom-left-radius: 5px; }
+          border-bottom-left-radius: 5px;
+  font-family: chalkboard;
+  font-size: 0.9em; }
   .score-panel .scores {
-    display: -webkit-box;
-    display: -webkit-flex;
-    display: -ms-flexbox;
-    display: flex;
+    width: 99%;
     height: 33px;
-    width: 197px;
+    background: #2F2904;
+    color: #c8c8c8;
     -webkit-border-bottom-left-radius: 5px;
             border-bottom-left-radius: 5px;
-    margin-left: 2px;
-    font-size: 0.7em; }
-    .score-panel .scores .player-1, .score-panel .scores .player-2 {
-      display: -webkit-box;
-      display: -webkit-flex;
-      display: -ms-flexbox;
-      display: flex;
-      height: 33px;
-      width: 100px;
-      font-family: menlo;
-      margin-left: 10px;
-      color: #c8c8c8; }
-      .score-panel .scores .player-1 .label, .score-panel .scores .player-1 .score-1, .score-panel .scores .player-1 .score-2, .score-panel .scores .player-2 .label, .score-panel .scores .player-2 .score-1, .score-panel .scores .player-2 .score-2 {
-        margin-top: 10px;
-        margin-right: 3px;
-        text-align: center; }
-  .score-panel .resetAll {
-    display: -webkit-box;
-    display: -webkit-flex;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-box-align: center;
-    -webkit-align-items: center;
-        -ms-flex-align: center;
-            align-items: center;
-    -webkit-box-pack: center;
-    -webkit-justify-content: center;
-        -ms-flex-pack: center;
-            justify-content: center;
-    height: 33px;
-    width: 76px;
     -webkit-border-bottom-right-radius: 5px;
-            border-bottom-right-radius: 5px;
-    margin-right: 2px;
-    color: #c8c8c8;
-    font-size: 0.8em;
-    font-family: menlo;
-    cursor: pointer; }
+            border-bottom-right-radius: 5px; }
+    .score-panel .scores .player-1, .score-panel .scores .player-2 {
+      width: 40%;
+      height: 33px;
+      border-right: 1px solid #c8c8c8; }
+    .score-panel .scores .resetAll {
+      width: 20%;
+      height: 33px;
+      cursor: pointer; }
 
-.scores, .resetAll {
-  background: #2F2904; }
+.scores, .player-1, .player-2, .label, .resetAll, .score-1, .score-2 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-justify-content: space-around;
+      -ms-flex-pack: distribute;
+          justify-content: space-around;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center; }
 
 .winDrawMessage {
   display: -webkit-box;

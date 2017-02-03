@@ -144,12 +144,9 @@
     margin-right: 15px
     margin-top: 0
 
-
-
 .score-panel
-  //display: none
   display: flex
-  justify-content: space-between
+  justify-content: space-around
   height: 35px
   width: 280px
   background: #c8c8c8
@@ -157,44 +154,31 @@
   margin-top: -35px
   border-bottom-right-radius: 5px
   border-bottom-left-radius: 5px
-  //position: absolute
-
+  font-family: chalkboard
+  font-size: 0.9em
   .scores
-    display: flex
+    width: 99%
     height: 33px
-    width: 197px
-    border-bottom-left-radius: 5px
-    margin-left: 2px
-    font-size: 0.7em
-    .player-1, .player-2
-      display: flex
-      height: 33px
-      width: 100px
-      font-family: menlo
-      margin-left: 10px
-      color: #c8c8c8
-      .label, .score-1, .score-2
-        margin-top: 10px
-        margin-right: 3px
-        text-align: center
-
-
-  .resetAll
-    display: flex
-    align-items: center
-    justify-content: center
-    height: 33px
-    width: 76px
-    border-bottom-right-radius: 5px
-    margin-right: 2px
-
-    //background: #2F2904
+    background: #2F2904
     color: #c8c8c8
-    font-size: 0.8em
-    font-family: menlo
-    cursor: pointer
-.scores, .resetAll
-  background: #2F2904
+    border-bottom-left-radius: 5px
+    border-bottom-right-radius: 5px
+    .player-1, .player-2
+      width: 40%
+      height: 33px
+      border-right: 1px solid #c8c8c8
+    .resetAll
+      width: 20%
+      height: 33px
+      cursor: pointer
+
+.scores, .player-1, .player-2, .label, .resetAll, .score-1, .score-2
+  display: flex
+  justify-content: space-around
+  align-items: center
+
+
+
 
 .winDrawMessage
   //display: none

@@ -47,17 +47,45 @@ var checkWin = function(symbol){
     }
     return winning;
   });
-  console.log('combo: '+ [winner, winningCombo]);
   return [winner, winningCombo];
 };
 
 var resetGame = function(){ //Reset current board and continue play
+//reset board | remove player prompts | remove message | start play
+resetSquares();
+resetBoard();
+numPositionsFilled = 0;
+
+$('.player1Prompt, .player2Prompt').animate({'margin-top': '0'}, 500);
+$('.winDrawMessage').fadeOut(500);
+setTimeout(function(){
+    play();
+}, 600);
+
 
 }
 
 var resetAll = function(){ //Full reset
+    $('.player1Prompt, .player2Prompt').animate({'margin-top': '0'}, 500);
+    $('.score-panel').animate({'margin-top': '-35px'}, 500);
+    $('.winDrawMessage').hide();
+    $('.box-container').hide();
+    $('.symbol-selection').hide();
 
-};
+    inGame = false;
+    resetBoard();
+    resetSquares();
+    numPositionsFilled = 0;
+    player1Symbol = '';
+    player2Symbol = '';
+
+    player1Score = 0;
+    player2Score = 0;
+    $('.score-1, .score-2').text(0);
+    turn = 0;
+
+    $('.gameMode').fadeIn();
+}
 
 var initializeGame = function(){
 
@@ -67,7 +95,6 @@ var initializeGame = function(){
   $('.symbol-selection').hide();
   $('.scores').children().hide();
   $('.winDrawMessage').hide();
-
 
   $('.prompt').animate({'margin-top': '-35px'}, 500);
   $('.score-panel').animate({'margin-top': '0'}, 500);
@@ -89,10 +116,10 @@ var initializeGame = function(){
 
       secondPlayer = function(){
         if (choice === 'AI') {
-          $('.player-2 .label').text('Computer : ');
+          $('.player-2 .label').text('Computer');
           return false;
         } else {
-          $('.player-2 .label').text('Player2 : ');
+          $('.player-2 .label').text('Player2');
           return true;
         }
       }
@@ -109,9 +136,9 @@ var initializeGame = function(){
     e.stopPropagation();
     $('.symbol-selection').fadeOut(500);
     if (secondPlayer) {
-      $('.player-2 .label').text('Player2 :  ');
+      $('.player-2 .label').text('Player2');
     } else {
-      $('.player-2 .label').text('Computer :  ');
+      $('.player-2 .label').text('Computer');
     }
     player1Symbol = $(this).text();
     player2Symbol = player1Symbol === 'X' ? 'O': 'X';
@@ -121,7 +148,7 @@ var initializeGame = function(){
   });
 
   $('.resetAll').click(function(){
-    resetBoard();
+    resetAll();
   });
 
 
@@ -179,8 +206,8 @@ var play = function(){
       var currentBox = $(this).attr('class')
           currentBox = currentBox[currentBox.length - 1];
           board[currentBox] = symbol;
-          console.log(board);
-      console.log('currentBox: '+ currentBox);
+
+
 
 
       if (inGame) {
@@ -193,19 +220,37 @@ var play = function(){
                 //display message for that player
                 var winner = turn === 1 ? 'Player 1 Wins!' : 'Player 2 Wins!';
                 $('.winDrawMessage').text(winner);
-                $('.winDrawMessage').fadeIn(300);
+                $('.winDrawMessage').fadeIn(600);
               } else {
                 //computer win case - lose message
                 var winner = turn === 1 ? 'You Win!' : 'You lose!';
                 $('.winDrawMessage').text(winner);
-                $('.winDrawMessage').fadeIn(300);
+                $('.winDrawMessage').fadeIn(600);
               }
+          //Show winning combo
           //reset game and start playing
+
+          for (var i = 0; i < checkWin(symbol)[1].length; i++) {
+            $('.box-'+checkWin(symbol)[1][i]).css({'background':'#00ffd1','color':'black'});
+          }
+
+          $('.resetAll').css({'pointer-events': 'none'});
+          setTimeout(function(){
+            resetGame();
+            $('.resetAll').css({'pointer-events': 'all'});
+          }, 3000);
+
 
         } else if (numPositionsFilled === 9) {  /*Draw | numPositionsFilled = 9*/
           //reset game and start playing
           $('.winDrawMessage').text("It was a draw!");
           $('.winDrawMessage').fadeIn(300);
+
+          $('.resetAll').css({'pointer-events': 'none'});
+          setTimeout(function(){
+            resetGame();
+            $('.resetAll').css({'pointer-events': 'all'});
+          }, 3000);
 
         } else {
           if (turn === 1) {  //Switching turns
