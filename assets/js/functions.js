@@ -170,6 +170,7 @@ var play = function(){ //Game play logic
       } else {
         $('.player1Prompt').text('Your Turn!')
       }
+
       $('.player1Prompt').animate({'margin-top': '-35px'}, 500);
     }
     else if (turn === 2) {
@@ -260,9 +261,11 @@ var computerMoves = function(){
   console.log('chosenBox: '+boardPositions[randomBox]);
   return boardPositions[randomBox];
 
+// MiniMax algorithm here..
+//How to capture states and terminal states?
+//Assign scores and compute move..
+//Return move 1 - 9
 
-
-  //Return move 1 - 9
 };
 
 var switchTurns = function(symbol){
@@ -309,6 +312,7 @@ var switchTurns = function(symbol){
         }else {
           $('.player2Prompt').text('Computer!');
         }
+
         $('.player1Prompt').animate({'margin-top': '0'}, 500);
         $('.player2Prompt').animate({'margin-top': '-35px'}, 500);
 
@@ -323,8 +327,12 @@ var switchTurns = function(symbol){
         }else {
           $('.player1Prompt').text('Your Turn!');
         }
+
         $('.player2Prompt').animate({'margin-top': '0'}, 500);
         $('.player1Prompt').animate({'margin-top': '-35px'}, 500);
+
+
+
       }
     }
   }
