@@ -225,7 +225,10 @@ var computerPlay = function(){
     moveToPosition = move;
     var box = $('.box-'+move);
     var symbol = player2Symbol;
-    box.text(symbol);
+    setTimeout(function(){
+      box.text(symbol);
+    }, 200);
+
 
     var currentBox = $(box).attr('class')
         currentBox = currentBox[currentBox.length - 1];
@@ -290,7 +293,7 @@ var switchTurns = function(symbol){
 
     } else if (numPositionsFilled === 9) {  /*Draw if numPositionsFilled = 9*/
       $('.winDrawMessage').text("It was a draw!");
-      $('.winDrawMessage').fadeIn(300);
+      $('.winDrawMessage').fadeIn(1000);
 
       $('.resetAll').css({'pointer-events': 'none'});
       setTimeout(function(){ //reset game and continue playing
